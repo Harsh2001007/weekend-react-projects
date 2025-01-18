@@ -1,5 +1,6 @@
 import React from "react";
 import headerLogo from "../assets/logo.jpg";
+import Button from "../UI/Button";
 
 function Header() {
   return (
@@ -9,7 +10,7 @@ function Header() {
         <h1>Junky Guy</h1>
       </div>
       <nav>
-        <button>Cart</button>
+        <Button textOnly={true}>Cart (0)</Button>
       </nav>
     </header>
   );
