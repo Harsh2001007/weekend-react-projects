@@ -1,3 +1,4 @@
+import { useActionState } from "react";
 import {
   isEqualToOtherValue,
   isEmail,
@@ -6,7 +7,7 @@ import {
 } from "../util/validation";
 
 export default function Signup() {
-  const signupHandler = (formData) => {
+  const signupHandler = (prevFormData, formData) => {
     const email = formData.get("email");
     const pass = formData.get("password");
     const confirmPass = formData.get("confirm-password");
@@ -45,10 +46,20 @@ export default function Signup() {
     if (acquisition.length === 0) {
       errors.push("please select atlease one acquisition channel");
     }
+
+    if (errors.length > 0) {
+      return { errors };
+    }
+
+    return { errors: null };
   };
 
+  const [formState, formAction] = useActionState(signupHandler, {
+    errors: null,
+  });
+
   return (
-    <form action={signupHandler}>
+    <form onSubmit={signupHandler}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -131,6 +142,16 @@ export default function Signup() {
           <input type="checkbox" id="terms-and-conditions" name="terms" />I
           agree to the terms and conditions
         </label>
+      </div>
+
+      <div>
+        {formState.errors && (
+          <ul className="error">
+            {formState.errors.map((err) => (
+              <li key={err}>{err}</li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <p className="form-actions">
