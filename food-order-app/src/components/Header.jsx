@@ -7,7 +7,7 @@ function Header() {
     <header id="main-header">
       <div id="title">
         <img src={headerLogo} alt="header-logo" />
-        <h1>Junkies Corner</h1>
+        <h1>Foody Freaks</h1>
       </div>
       <nav>
         <Button textOnly={true}>Cart (0)</Button>
